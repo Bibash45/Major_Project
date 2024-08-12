@@ -1,0 +1,636 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ______________ Hero start _____________ */
+
+.hero {
+  width: 100%;
+  background-image: url("/images/background.jpg");
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 2rem;
+}
+
+.hero .button {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero .button a {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.hero .btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.hero .btn-success:hover {
+  background-color: transparent;
+  border: 2px solid white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero .btn-outline-success {
+  background-color: transparent;
+  color: #28a745;
+  border: 2px solid #28a745;
+}
+
+.hero .btn-outline-success:hover {
+  color: white;
+  border: 2px solid white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 576px) {
+  .hero {
+    padding: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+  }
+
+  .hero .button a {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero {
+    padding: 4rem;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero p {
+    font-size: 1.75rem;
+  }
+
+  .hero .button a {
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
+
+  .hero p {
+    font-size: 2rem;
+  }
+
+  .hero .button a {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* ________________Hero End __________________ */
+
+.vertical-line {
+  border-left: 2px solid black;
+  height: 100px; /* Adjust height as needed */
+}
+/* ---------footer start ----------- */
+.footer {
+  background-color: #263238;
+  color: white;
+}
+
+/* -----------end footer ----------- */
+
+/* ----------start WhoWeAre-------- */
+.WhoWeAre {
+  background-image: url("https://media.istockphoto.com/id/1793962646/photo/blue-backgroun-product-teal-dark-green-podium-interior-studio-shadow-wall-room-minimal-table.webp?b=1&s=170667a&w=0&k=20&c=S6a3dnxsaJaraAybKU9Cm6Jz8iibkGNdRRulq0sMDAk=");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ----------end WhoWeAre-------- */
+
+/* #### ---->    sponsors  <------- #### */
+.sponsors-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.sponsors {
+  display: inline-block;
+  animation: scroll 20s linear infinite;
+}
+.sponsor-logo {
+  display: inline-block;
+  margin-right: 20px; /* Adjust the spacing between logos */
+}
+
+.sponsors-inner {
+  display: flex;
+}
+/* ------------ end of sponsors ---------- */
+
+/* start of donation steps */
+.video-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.375rem; /* Same as Bootstrap's .rounded class */
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(65%); /* Makes the video darker */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: #fff; /* Ensure text is readable over the video */
+}
+
+.content h2 {
+  animation: fadeInDown 1s;
+}
+
+.content p {
+  animation: fadeInUp 1s;
+}
+
+.content button {
+  animation: fadeInUp 1.5s;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step:hover .card {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+/* end of donation steps */
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ----------start of donorComp------- */
+
+.hero-section {
+  position: relative;
+  background: url("/images/helpingHand.jpg") no-repeat center center/cover;
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* .form-signin {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} */
+
+/* how it works */
+.how-it-works .card {
+  background-color: white;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transform: translateZ(0); /* Prevents slight shifting on hover */
+}
+
+.how-it-works .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(40, 167, 69, 0.8);
+  border-color: #28a745;
+}
+
+.how-it-works .card-body h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.how-it-works .card-body p {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.how-it-works .card-title {
+  position: relative;
+}
+
+.how-it-works .card-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 30%;
+  height: 2px;
+  background-color: #28a745;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  /* box-shadow: 0 0 10px rgba(40, 167, 69, 0.8); */
+}
+
+/* Glowing border on hover */
+.how-it-works .card:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  border: 2px solid #28a745;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.8);
+  pointer-events: none; /* Ensures the border doesn't interfere with card interaction */
+}
+
+/* testimonils */
+
+.testimonials blockquote {
+  background: #f9f9f9;
+  padding: 20px;
+  border-left: 5px solid #007bff;
+  margin-bottom: 20px;
+}
+blockquote.custom-success {
+  border-left: 5px solid #28a745; /* Bootstrap's success color */
+  padding-left: 1rem; /* Adjust padding to move text away from the line */
+}
+
+.footer {
+  background: #333;
+}
+
+/* ----------end of donorComp------- */
+
+/* start of sidebar  */
+/* Sidebar.css */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 16px;
+  color: #495057;
+}
+
+.profile-info {
+  margin-top: 1rem;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #dee2e6;
+}
+
+.profile-name {
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.list-unstyled {
+  padding: 0;
+}
+
+.list-unstyled li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.list-unstyled a,
+.logout-btn {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.list-unstyled a:hover,
+.logout-btn:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+/* end of sidebar */
+
+/* start of contact Page */
+.contact {
+  background-color: #f8f9fa;
+}
+
+.contact h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact p {
+  font-size: 1.25rem;
+  color: #6c757d;
+}
+
+.contact .form-control {
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+}
+
+.contact .btn-success {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.contact .btn-success:hover {
+  background-color: #218838;
+}
+
+@media (min-width: 768px) {
+  .contact h2 {
+    font-size: 3rem;
+  }
+
+  .contact p {
+    font-size: 1.5rem;
+  }
+}
+
+/* end of contact Page */
+
+/* start of  Notice Model */
+.modal-header {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.modal-body p {
+  font-weight: bold;
+}
+
+.modal-body ul {
+  margin-top: 15px;
+  list-style-type: square;
+}
+
+.modal-footer button {
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+/* end of Notice Model */
+
+@media (max-width: 3000px) {
+  .sponsors img {
+    border-radius: 50%;
+    width: 130px;
+  }
+  .hero {
+    height: 450px;
+  }
+}
+@media (max-width: 1200px) {
+  .sponsors img {
+    width: 100px;
+    border-radius: 50%;
+  }
+  .hero {
+    height: 400px;
+  }
+}
+@media (max-width: 992px) {
+  .sponsors img {
+    width: 70px;
+    border-radius: 50%;
+  }
+  .hero {
+    height: 360px;
+  }
+}
+@media (max-width: 768px) {
+  .sponsors img {
+    width: 60px;
+    border-radius: 50%;
+  }
+}
+@media (max-width: 576px) {
+  .sponsors img {
+    width: 60px;
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+
+/* ______________ */
+.video-player-container {
+  padding: 20px 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.video-player-container h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.video-player-container p {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.video-frame-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+}
+
+.video-frame-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .video-frame-container {
+    padding-bottom: 45%; /* 16:9 aspect ratio but larger */
+  }
+}
+
+@media (min-width: 1200px) {
+  .video-frame-container {
+    padding-bottom: 40%; /* 16:9 aspect ratio but even larger */
+  }
+}
+
