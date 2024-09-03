@@ -4,14 +4,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import Donation from "../models/DonationData.js";
 import Volunteer from "../models/VolunteerData.js";
-
+import multer from "multer";
+const upload = multer({ dest: 'uploads/' })
 const router = express.Router();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with your actual secret key
 
 // Register
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -68,8 +68,9 @@ router.post("/login", async (req, res) => {
 });
 
 // Route for editing user profile
-router.put("/users/:id", async (req, res) => {
+router.put("/users/:id",upload.single('profileImage'), async (req, res) => {
   try {
+    // console.log(req.file, req.body)
     const userId = req.params.id;
     const { name, email, bio, profileImage } = req.body;
 

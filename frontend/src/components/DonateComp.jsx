@@ -51,7 +51,7 @@ const DonateComp = () => {
       {/* Donation Form */}
       <section className="donation-form container my-5">
         <h2 className="text-center mb-4">Donate Food</h2>
-        <form className="shadow p-5" onSubmit={handleSubmit} autoComplete="off">
+        <form className="shadow p-5 rounded-2" onSubmit={handleSubmit} autoComplete="off">
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Name

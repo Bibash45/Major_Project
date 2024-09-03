@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DonateComp from "../components/DonateComp";
 import NoticeModal from "../components/NoticeModel";
+import { Helmet } from "react-helmet";
 const DonatePage = () => {
   const [showNotice, setShowNotice] = useState(true);
 
@@ -11,6 +12,11 @@ const DonatePage = () => {
   };
   return (
     <>
+     <Helmet>
+                <meta charSet="utf-8" />
+                <title>Donate - DonateFood</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
       <NoticeModal
         show={showNotice}
         handleClose={handleClose}

@@ -3,10 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState({
-    token: localStorage.getItem('token') || null,
-    user: JSON.parse(localStorage.getItem('user')) || null,
-  });
+  const [authData, setAuthData] = useState({ token: null, user: null });
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -21,12 +18,14 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('user'); // Remove corrupted data
         setAuthData({ token: null, user: null }); // Reset to null
       }
-    } else {
-      setAuthData({ token: null, user: null });
     }
   }, []);
 
+  
+
   const login = (token, user) => {
+    console.log("Setting token:", token);
+    console.log("Setting user:", user);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     setAuthData({ token, user });

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../customHook/useAuth";
+import { Helmet } from "react-helmet";
 
 const EditProfile = () => {
   const { user } = useAuth();
@@ -52,7 +53,12 @@ const EditProfile = () => {
     };
   }, [formData.profileImage]);
 
-  return (
+  return (<>
+   <Helmet>
+                <meta charSet="utf-8" />
+                <title>Edit Profile - DonateFood</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
     <Container className="py-4">
       <Row>
         <Col md={4} className="text-center">
@@ -126,6 +132,7 @@ const EditProfile = () => {
         </Col>
       </Row>
     </Container>
+  </>
   );
 };
 

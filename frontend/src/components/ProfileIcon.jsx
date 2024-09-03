@@ -16,7 +16,6 @@ const ProfileIcon = () => {
   const closeSidebar = () => {
     setShowSidebar(false);
   };
-
   return (
     <>
       <div className="profile-icon" onClick={toggleSidebar}>
