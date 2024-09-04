@@ -53,86 +53,95 @@ const EditProfile = () => {
     };
   }, [formData.profileImage]);
 
-  return (<>
-   <Helmet>
-                <meta charSet="utf-8" />
-                <title>Edit Profile - DonateFood</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>
-    <Container className="py-4">
-      <Row>
-        <Col md={4} className="text-center">
-          <Form.Group>
-            <Form.Label>Profile Picture</Form.Label>
-            <div className="profile-image-container">
-              <img
-                src={
-                  formData.profileImage
-                  
-                }
-                alt="Profile"
-                className="img-fluid rounded-circle"
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
-              />
-            </div>
-            <Form.Control
-              type="file"
-              id="profileImage"
-              label="Upload New Photo"
-              onChange={handleImageChange}
-            />
-          </Form.Group>
-        </Col>
-        <Col md={8}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formName">
-              <Form.Label>Full Name</Form.Label>
+  return (
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Edit Profile - DonateFood</title>
+        <link
+          rel="shortcut icon"
+          href="/images/logo.png"
+          type="image/x-icon"
+          sizes="64x64"
+        />
+
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <Container className="py-4">
+        <Row>
+          <Col md={4} className="text-center">
+            <Form.Group>
+              <Form.Label>Profile Picture</Form.Label>
+              <div className="profile-image-container">
+                <img
+                  src={formData.profileImage}
+                  alt="Profile"
+                  className="img-fluid rounded-circle"
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
               <Form.Control
-                type="text"
-                name="name"
-                placeholder="Enter your full name"
-                value={formData.name}
-                onChange={handleChange}
+                type="file"
+                id="profileImage"
+                label="Upload New Photo"
+                onChange={handleImageChange}
               />
             </Form.Group>
-            <Form.Group controlId="formEmail" className="mt-3">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formBio" className="mt-3">
-              <Form.Label>Bio</Form.Label>
-              <Form.Control
-                as="textarea"
-                name="bio"
-                rows={3}
-                placeholder="Tell us about yourself"
-                value={formData.bio}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <div className="mt-4 text-center">
-              <Button
-                variant="secondary"
-                className="me-2"
-                onClick={() => navigate("/")}
-              >
-                Cancel
-              </Button>
-              <Button variant="success" type="submit">
-                Save Changes
-              </Button>
-            </div>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
-  </>
+          </Col>
+          <Col md={8}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="formName">
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  placeholder="Enter your full name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="formEmail" className="mt-3">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBio" className="mt-3">
+                <Form.Label>Bio</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="bio"
+                  rows={3}
+                  placeholder="Tell us about yourself"
+                  value={formData.bio}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <div className="mt-4 text-center">
+                <Button
+                  variant="secondary"
+                  className="me-2"
+                  onClick={() => navigate("/")}
+                >
+                  Cancel
+                </Button>
+                <Button variant="success" type="submit">
+                  Save Changes
+                </Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

@@ -4,11 +4,18 @@ import { Helmet } from "react-helmet";
 const Contact = () => {
   return (
     <>
-     <Helmet>
-                <meta charSet="utf-8" />
-                <title>Contact - DonateFood</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Contact - DonateFood</title>
+        <link
+          rel="shortcut icon"
+          href="/images/logo.png"
+          type="image/x-icon"
+          sizes="64x64"
+        />
+
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <section className="contact py-5">
         <div className="container">
           <h2 className="text-center mb-4">Contact Us</h2>

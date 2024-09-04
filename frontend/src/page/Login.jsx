@@ -8,11 +8,18 @@ const Login = () => {
   const { isLogin, isSignUp, setSignUp } = useContext(myLoginContext);
   return (
     <>
-     <Helmet>
-                <meta charSet="utf-8" />
-                <title>Login - DonateFood</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login - DonateFood</title>
+        <link
+          rel="shortcut icon"
+          href="/images/logo.png"
+          type="image/x-icon"
+          sizes="64x64"
+        />
+
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="d-flex flex-column justify-content-between">
         {isSignUp ? <SignComp /> : <LoginCom />}
         {/* {isLogin ? <LoginCom />: <SignComp />} */}
