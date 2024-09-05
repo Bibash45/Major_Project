@@ -6,22 +6,20 @@ import { RxCross1 } from "react-icons/rx";
 import { AuthContext } from "../context/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
 import { useRegisterUser } from "../reactQueryCustomHooks";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignComp = () => {
-  const navigate = useNavigate();
   const { setIsLogin, setSignUp } = useContext(myLoginContext);
   const { login } = useContext(AuthContext);
 
   const [successMessage, setSuccessMessage] = useState();
 
-  const { createUser } = useRegisterUser( setSuccessMessage);
+  const { createUser } = useRegisterUser(setSuccessMessage);
   // console.log(data);
 
-  const handleSubmit =  (values) => {
+  const handleSubmit = (values) => {
     const data = {
       name: values.username,
       email: values.email,
@@ -188,9 +186,7 @@ const SignComp = () => {
                     <RxCross1 />
                   </Link>
                 </Form>
-                {error && (
-                  <div className="alert alert-danger mt-3">{error}</div>
-                )}
+
                 {successMessage && (
                   <div className="alert alert-success mt-3">
                     Registration successful

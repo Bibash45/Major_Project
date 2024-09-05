@@ -49,3 +49,24 @@ export const useLoginUser = ( setSuccessMessage) => {
 
   return { loginUser };
 };
+
+export const useVolunteer = ( ) => {
+  const queryClient = useQueryClient();
+
+  const { mutate: createVolunteer } = useMutation({
+    mutationFn: async (data) => {
+      const response = await axios.post("http://localhost:5000/api/volunteer", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Submitted successfull");
+      
+    },
+    onError: (error) => {
+      // const errorMessage = error.response?.data?.message || "Login failed.";
+      toast.error("Submission failed");
+    },
+  });
+
+  return { createVolunteer };
+};
