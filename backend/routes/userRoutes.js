@@ -4,8 +4,10 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import Donation from "../models/DonationData.js";
 import Volunteer from "../models/VolunteerData.js";
+import path from "path";
 import multer from "multer";
-const upload = multer({ dest: 'uploads/' })
+import { fileURLToPath } from "url";
+import fs from "fs";
 const router = express.Router();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with your actual secret key
 
@@ -68,28 +70,28 @@ router.post("/login", async (req, res) => {
 });
 
 // Route for editing user profile
-router.put("/users/:id",upload.single('profileImage'), async (req, res) => {
-  try {
-    // console.log(req.file, req.body)
-    const userId = req.params.id;
-    const { name, email, bio, profileImage } = req.body;
+// router.put("/users/:id",upload.single('profileImage'), async (req, res) => {
+//   try {
+//     // console.log(req.file, req.body)
+//     const userId = req.params.id;
+//     const { name, email, bio, profileImage } = req.body;
 
-    // Find the user by ID and update their profile
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { name, email, bio, profileImage },
-      { new: true } // Return the updated document
-    );
+//     // Find the user by ID and update their profile
+//     const updatedUser = await User.findByIdAndUpdate(
+//       userId,
+//       { name, email, bio, profileImage },
+//       { new: true } // Return the updated document
+//     );
 
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
+//     if (!updatedUser) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
 
-    res.json(updatedUser);
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error });
-  }
-});
+//     res.json(updatedUser);
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// });
 
 // Submit Donation
 router.post("/donations", async (req, res) => {
@@ -127,6 +129,75 @@ router.post("/volunteer", async (req, res) => {
   }
 });
 
+// __________________
+// Get the directory name of the current module
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Define the path to the Images directory inside public
+const imagesDir = path.join(__dirname, "../public/Images");
+
+// Ensure the Images directory exists (optional)
+if (!fs.existsSync(imagesDir)) {
+  fs.mkdirSync(imagesDir, { recursive: true });
+}
+
+// Configure Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, imagesDir); // Correct path to 'Images' directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename with extension
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Route to edit user profile and save image path to DB
+router.put("/users/:id", upload.single("image"), async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { name, email, bio } = req.body;
+
+    // Prepare updated user data
+    const updatedUserData = { name, email, bio };
+
+    // If a new image is uploaded, save the image path in the database
+    if (req.file) {
+      // Store the relative path in the database
+      const relativeImagePath = path.relative(__dirname, req.file.path);
+      updatedUserData.profileImage = `Images/${path.basename(
+        relativeImagePath
+      )}`; // Relative path to be used in URLs
+    }
+
+    // Update the user in the database
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// Route to get user profile
+router.get("/users/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).exec();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user.profileImage);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
 
 // Export router
 export default router;

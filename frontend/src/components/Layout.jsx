@@ -1,15 +1,17 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Nav from './Nav'
-import Footer from './Footer'
+import React from "react";
+import { Outlet, useNavigation } from "react-router-dom";
+import Nav from "./Nav";
+import Footer from "./Footer";
+
 const Layout = () => {
+  const navigation = useNavigation();
+  const isPageLoading = navigation.state === "loading";
   return (
     <>
       <Nav />
-      <Outlet />
-      <Footer />
+      {isPageLoading ? <Loading /> : <Outlet />} <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

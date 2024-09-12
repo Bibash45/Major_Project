@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../customHook/useAuth";
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({ showSidebar, setShowSidebar, onClose, defaultImg }) => {
+const Sidebar = ({ showSidebar, setShowSidebar, onClose, imgUrl }) => {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
 
@@ -24,7 +24,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, onClose, defaultImg }) => {
         ></button>
         <div className="profile-info text-center">
           <img
-            src={user.profileImage || defaultImg}
+            src={imgUrl}
             alt="Profile"
             className="profile-image rounded-circle"
             style={{ width: "60px", height: "60px", objectFit: "cover" }}
@@ -38,7 +38,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, onClose, defaultImg }) => {
             className="text-decoration-none text-dark d-flex align-items-center"
             onClick={(e) => {
               e.preventDefault();
-              setShowSidebar(false);
+              onClose();
               navigate("/edit-profile");
             }}
           >
@@ -51,7 +51,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, onClose, defaultImg }) => {
             className="text-decoration-none text-dark d-flex align-items-center"
             onClick={(e) => {
               e.preventDefault();
-              setShowSidebar(false);
+              onClose();
             }}
           >
             <i className="bi bi-gear-fill me-2"></i>Settings
@@ -59,16 +59,14 @@ const Sidebar = ({ showSidebar, setShowSidebar, onClose, defaultImg }) => {
         </li>
         <li className="mb-2">
           <Link
-            to="/help"
             className="text-decoration-none text-dark d-flex align-items-center"
+            onClick={(e) => {
+              e.preventDefault();
+              onClose();
+              navigate("/help");
+            }}
           >
-            <i
-              className="bi bi-question-circle me-2"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowSidebar(false);
-              }}
-            ></i>
+            <i className="bi bi-question-circle me-2"></i>
             Help
           </Link>
         </li>

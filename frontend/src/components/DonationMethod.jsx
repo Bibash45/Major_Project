@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const DonationMethod = () => {
   return (
     <>
@@ -15,7 +16,7 @@ const DonationMethod = () => {
             with those in need, ensuring no food goes to waste. Follow these
             simple steps to make a difference today.
           </p>
-          <button className="btn btn-success btn-lg mt-3">Get Started</button>
+          <Link to="/donate" className="btn btn-success btn-lg mt-3">Get Started</Link>
         </div>
       </div>
 

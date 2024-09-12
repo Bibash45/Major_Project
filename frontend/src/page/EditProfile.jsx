@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,12 @@ import { Helmet } from "react-helmet";
 const EditProfile = () => {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
-    profileImage: user ? user.profileImage : "",
+    profileImage: null,
     name: user ? user.name : "",
     email: user ? user.email : "",
     bio: user ? user.bio : "",
   });
+  const [imagePreview, setImagePreview] = useState(user ? user.profileImage : "");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,34 +25,49 @@ const EditProfile = () => {
   };
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
     setFormData((prevState) => ({
       ...prevState,
-      profileImage: URL.createObjectURL(e.target.files[0]),
+      profileImage: file,
     }));
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Create a FormData object
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("bio", formData.bio);
+
+    // Append the file if available
+    if (formData.profileImage) {
+      formDataToSend.append("image", formData.profileImage);
+    }
+
     try {
       const response = await axios.put(
         `http://localhost:5000/api/users/${user._id}`, // Use user._id for API request
-        formData,
-        { headers: { "Content-Type": "application/json" } }
+        formDataToSend,
+        { headers: { "Content-Type": "multipart/form-data" } } // Set the header for file upload
       );
       console.log("Profile updated:", response.data);
+      navigate("/"); // Navigate to home or another page on success
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
+
   // Cleanup blob URL when component unmounts or image changes
   useEffect(() => {
-    // Revoke blob URL to free memory
     return () => {
-      if (formData.profileImage && formData.profileImage.startsWith("blob:")) {
-        URL.revokeObjectURL(formData.profileImage);
+      if (imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
       }
     };
-  }, [formData.profileImage]);
+  }, [imagePreview]);
 
   return (
     <>
@@ -64,7 +80,6 @@ const EditProfile = () => {
           type="image/x-icon"
           sizes="64x64"
         />
-
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <Container className="py-4">
@@ -74,7 +89,7 @@ const EditProfile = () => {
               <Form.Label>Profile Picture</Form.Label>
               <div className="profile-image-container">
                 <img
-                  src={formData.profileImage}
+                  src={imagePreview || "/images/default-profile.png"}
                   alt="Profile"
                   className="img-fluid rounded-circle"
                   style={{

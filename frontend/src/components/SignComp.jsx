@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import { myLoginContext } from "../context/loginContext";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { AuthContext } from "../context/AuthContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -26,30 +25,8 @@ const SignComp = () => {
       password: values.password,
     };
     createUser(data);
-    //   try {
-    //     const response = await axios.post(
-    //       "http://localhost:5000/api/register",
-    //       {
-    //         name: values.username,
-    //         email: values.email,
-    //         password: values.password,
-    //       },
-    //       {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //     login(token, user);
-
-    //     setSuccessMessage(true);
-    //     console.log("Registration successful:", response.data);
-    //   } catch (err) {
-    //     console.error("Registration failed:", err.response?.data || err.message);
-    //     setError(
-    //       err.response?.data?.error || "Registration failed. Please try again."
-    //     );
-    //   }
+    setIsLogin(true);
+    setSignUp(false);
   };
 
   return (
@@ -186,12 +163,6 @@ const SignComp = () => {
                     <RxCross1 />
                   </Link>
                 </Form>
-
-                {successMessage && (
-                  <div className="alert alert-success mt-3">
-                    Registration successful
-                  </div>
-                )}
               </main>
             </div>
           </div>

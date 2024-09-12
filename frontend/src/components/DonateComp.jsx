@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useAuth from "../customHook/useAuth";
 
 const DonateComp = () => {
   const initialState = {
@@ -14,6 +15,7 @@ const DonateComp = () => {
     dateTime: "",
     message: "",
   };
+  const { user, token } = useAuth();
 
   const [donateData, setDonateData] = useState(initialState);
   const [successMessage, setSuccessMessage] = useState("");
@@ -51,7 +53,11 @@ const DonateComp = () => {
       {/* Donation Form */}
       <section className="donation-form container my-5">
         <h2 className="text-center mb-4">Donate Food</h2>
-        <form className="shadow p-5 rounded-2" onSubmit={handleSubmit} autoComplete="off">
+        <form
+          className="shadow p-5 rounded-2"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Name
@@ -178,9 +184,13 @@ const DonateComp = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-success">
-            Submit
-          </button>
+          {user && token ? (
+            <button type="submit" className="btn btn-success">
+              Submit
+            </button>
+          ) : (
+            <button className="btn btn-danger">please login</button>
+          )}
         </form>
         {successMessage && (
           <div className="alert alert-success mt-3">{successMessage}</div>
@@ -228,31 +238,30 @@ const DonateComp = () => {
       </section>
 
       {/* Testimonials */}
-{/* Testimonials */}
-<section className="testimonials py-5">
-  <div className="container">
-    <h2 className="text-center mb-4">What Our Donors Say</h2>
-    <div className="row">
-      <div className="col-md-6">
-        <blockquote className="blockquote custom-success">
-          <p className="mb-0">
-            "Donating food has never been easier. I'm glad I could help!"
-          </p>
-          <footer className="blockquote-footer mt-2">John Doe</footer>
-        </blockquote>
-      </div>
-      <div className="col-md-6">
-        <blockquote className="blockquote custom-success">
-          <p className="mb-0">
-            "A wonderful initiative. I'm happy to contribute."
-          </p>
-          <footer className="blockquote-footer mt-2">Jane Smith</footer>
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-
+      {/* Testimonials */}
+      <section className="testimonials py-5">
+        <div className="container">
+          <h2 className="text-center mb-4">What Our Donors Say</h2>
+          <div className="row">
+            <div className="col-md-6">
+              <blockquote className="blockquote custom-success">
+                <p className="mb-0">
+                  "Donating food has never been easier. I'm glad I could help!"
+                </p>
+                <footer className="blockquote-footer mt-2">John Doe</footer>
+              </blockquote>
+            </div>
+            <div className="col-md-6">
+              <blockquote className="blockquote custom-success">
+                <p className="mb-0">
+                  "A wonderful initiative. I'm happy to contribute."
+                </p>
+                <footer className="blockquote-footer mt-2">Jane Smith</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const Nav = () => {
   const { setLog, log, setIsLogin, isLogin, setSignUp } =
     useContext(myLoginContext);
   const { user, token } = useAuth();
-  console.log(token);
+  // console.log(token);
 
   const handleClick = () => {
     setIsLogin(true);
@@ -69,11 +69,12 @@ const Nav = () => {
                   Donate
                 </Link>
               </li>
-              <li className="nav-item">
+              {token && user ?               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/volunteer">
                   Volunteer
                 </Link>
-              </li>
+              </li> : null}
+
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/contact">
                   Contact

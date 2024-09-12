@@ -9,7 +9,7 @@ const Hero = () => {
         <Link to="/donate" className="btn btn-sm btn-success">
           Donate Food
         </Link>
-        <Link to="#" className="btn btn-sm btn-outline-success">
+        <Link to="/request-food" className="btn btn-sm btn-outline-success">
           Request Food
         </Link>
       </div>
