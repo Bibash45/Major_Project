@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useAuth from "../customHook/useAuth";
+import { Link } from "react-router-dom";
 
 const DonateComp = () => {
   const initialState = {
@@ -189,7 +190,9 @@ const DonateComp = () => {
               Submit
             </button>
           ) : (
-            <button className="btn btn-danger">please login</button>
+            <Link to="/login" className="btn btn-danger">
+              please login
+            </Link>
           )}
         </form>
         {successMessage && (

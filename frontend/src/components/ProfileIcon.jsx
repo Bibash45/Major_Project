@@ -1,36 +1,43 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./SideBar";
-import useAuth from "../customHook/useAuth";
 import axios from "axios";
+import { isAuth } from "../help/helpers";
 
 const ProfileIcon = () => {
-  const { user } = useAuth();
-
   const [imageSrc, setImageSrc] = useState("");
-  const defaultImage =
-    "https://static.vecteezy.com/system/resources/previews/003/715/527/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-vector.jpg";
+  
+  // Default image if no profile image is available
+  const defaultImage = "images/profile.jpg";
 
-  const fetchImage = async () => {
+  // Function to fetch user data and profile image
+  const getUserData = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/users/${user._id}`
+      const response = await axios.get(
+        `http://localhost:5000/api/users/${isAuth()._id}`
       );
-      const data = res.data;
-      console.log(data);
+      
+      let fullPath = response.data.profileImage;
 
-      // Create a URL for the image blob
-      setImageSrc(`http://localhost:5000/${data}`);
+      // Handle if profileImage is missing or not valid
+      if (!fullPath) {
+        setImageSrc(defaultImage);
+      } else {
+        // Remove "public/" from the path
+        let relativePath = fullPath.replace(/^public[\\\/]/, '');
+        
+        // Set the image source to the correct URL
+        setImageSrc(`http://localhost:5000/${relativePath}`);
+      }
     } catch (error) {
-      setImageSrc(defaultImage); // Use default image if profile image is not found
+      console.error("Error fetching user data:", error);
+      setImageSrc(defaultImage); // Fallback to default image on error
     }
   };
+
+  // Fetch user data when component mounts
   useEffect(() => {
-    if (user) {
-      fetchImage();
-    } else {
-      setImageSrc(defaultImage); // Use default image if no profile image is available
-    }
-  }, [user]);
+    getUserData();
+  }, []);
 
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -41,13 +48,12 @@ const ProfileIcon = () => {
   const closeSidebar = () => {
     setShowSidebar(false);
   };
-  console.log(imageSrc);
-  
 
   return (
     <>
       <div className="profile-icon" onClick={toggleSidebar}>
-        <img src={imageSrc} alt="Profile" className="profile-image" />
+        <img src={imageSrc || defaultImage} alt="Profile" className="profile-image"
+        title="profile" />
       </div>
       <Sidebar
         showSidebar={showSidebar}

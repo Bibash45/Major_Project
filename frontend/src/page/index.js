@@ -10,3 +10,7 @@ export { default as Login } from "./Login";
 export { default as Volunteer } from "./Volunteer";
 export { default as Notfound } from "./Notfound";
 export { default as RequestPage } from "./RequestPage";
+export { default as FeedbackPage } from "./FeedbackPage";
+export { default as ActivatePage } from "./ActivatePage";
+export { default as ForgotPage } from "./ForgotPage";
+export { default as ResetPage } from "./ResetPage";

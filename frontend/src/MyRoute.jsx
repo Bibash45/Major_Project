@@ -12,6 +12,10 @@ import {
   ContactPage,
   Notfound,
   RequestPage,
+  FeedbackPage,
+  ActivatePage,
+  ForgotPage,
+  ResetPage,
 } from "./page";
 import { Layout } from "./components";
 const router = createBrowserRouter([
@@ -31,6 +35,17 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        
+      },
+      {
+        path: "forgot",
+        element: <ForgotPage />,
+
+      },
+      {
+        path: "reset/:token",
+        element: <ResetPage />,
+
       },
       {
         path: "howitwork",
@@ -44,6 +59,7 @@ const router = createBrowserRouter([
         path: "volunteer",
         element: <Volunteer />,
       },
+
       {
         path: "dashboard",
         element: <Dashboard />,
@@ -64,7 +80,15 @@ const router = createBrowserRouter([
         path: "request-food",
         element: <RequestPage />,
       },
+      {
+        path: "/send-feedback",
+        element: <FeedbackPage />,
+      },
     ],
+  },
+  {
+    path: "/activate/:token",
+    element: <ActivatePage />,
   },
 ]);
 

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { myLoginContext } from "../context/loginContext";
 import { Link } from "react-router-dom";
-import useAuth from "../customHook/useAuth";
+// import useAuth from "../customHook/useAuth";
+import { isAuth } from "../help/helpers";
 import ProfileIcon from "./ProfileIcon";
 
 const Nav = () => {
   const { setLog, log, setIsLogin, isLogin, setSignUp } =
     useContext(myLoginContext);
-  const { user, token } = useAuth();
   // console.log(token);
 
   const handleClick = () => {
@@ -69,20 +69,32 @@ const Nav = () => {
                   Donate
                 </Link>
               </li>
-              {token && user ?               <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="/volunteer">
-                  Volunteer
-                </Link>
-              </li> : null}
-
-              <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="/contact">
-                  Contact
-                </Link>
-              </li>
+              { isAuth() ? (
+                <>
+                  {" "}
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      aria-current="page"
+                      to="/volunteer"
+                    >
+                      Volunteer
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link"
+                      aria-current="page"
+                      to="/contact"
+                    >
+                      Contact
+                    </Link>
+                  </li>{" "}
+                </>
+              ) : null}
             </ul>
             <div className="d-lg-flex justify-content-lg-end">
-              {token && user ? (
+              {isAuth() ? (
                 <ProfileIcon />
               ) : (
                 <Link

@@ -20,3 +20,4 @@ export { default as WhatWeDo } from "./WhatWeDo";
 export { default as WhoWeAre } from "./WhoWeAre";
 export { default as Loading } from "./Loading";
 export { default as Request } from "./Request";
+export { default as FeedbackForm } from "./FeedbackForm";

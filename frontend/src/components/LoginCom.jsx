@@ -2,50 +2,42 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { myLoginContext } from "../context/loginContext";
-import { Formik, Form, Field,ErrorMessage } from "formik";
-import * as Yup from "yup"
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLoginUser } from "../reactQueryCustomHooks";
 
 const LoginCom = () => {
   const { setIsLogin, setSignUp } = useContext(myLoginContext);
- 
   const [successMessage, setSuccessMessage] = useState("");
-  const { loginUser } = useLoginUser( setSuccessMessage);
-
+  const { loginUser } = useLoginUser(setSuccessMessage);
 
   const handleSubmit = (values) => {
     const data = {
-      name: values.name,
+      email: values.email,
       password: values.password,
     };
+
     loginUser(data);
   };
 
   return (
     <>
-    <ToastContainer
-        theme="colored"
-        position="top-center"
-        className="text-white"
-      />
+      <ToastContainer theme="colored" position="top-center" className="text-white" />
       <Formik
-       initialValues={{ name: "", password: "" }}
-       validationSchema={Yup.object({
-         name: Yup.string().required("Username is required"),
-         password: Yup.string().required("Password is required"),
-       })}
-      onSubmit={handleSubmit}>
+        initialValues={{ email: "bibashcdry46@gmail.com", password: "BIBASHbibash043@" }}
+        validationSchema={Yup.object({
+          email: Yup.string().email("Invalid email format").required("Email is required"),
+          password: Yup.string().required("Password is required"),
+        })}
+        onSubmit={handleSubmit}
+      >
         <div className="container my-5">
           <div className="row">
             <div className="col-sm-10 col-md-8 col-lg-6 m-auto">
               <main className="form-signin w-100 m-auto">
-                <Form
-                  className="shadow p-5"
-                  style={{ position: "relative" }}
-                  autoComplete="off"
-                >
+                <Form className="shadow p-5" style={{ position: "relative" }} autoComplete="off">
                   <div className="text-center">
                     <img
                       className="mb-4 img-fluid w-25 w-sm-50 w-md-75 w-lg-100 w-xl-100 w-xxl-100"
@@ -57,35 +49,31 @@ const LoginCom = () => {
 
                   <div className="form-floating my-2">
                     <Field
-                    name="name"
-                      type="text"
+                      name="email"
+                      type="email"
                       className="form-control"
                       id="floatingInput"
-                      placeholder="Username"
-                      // value={name}
-                      // onChange={(e) => setName(e.target.value)}
+                      placeholder="Email"
                       required
                     />
-                    <label htmlFor="floatingInput">Username</label>
-                    <ErrorMessage name="name">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
+                    <label htmlFor="floatingInput">Email</label>
+                    <ErrorMessage name="email">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
                   </div>
                   <div className="form-floating">
                     <Field
-                    name="password"
+                      name="password"
                       type="password"
                       className="form-control"
                       id="floatingPassword"
                       placeholder="Password"
-                      // value={password}
-                      // onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                     <label htmlFor="floatingPassword">Password</label>
                     <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
                   </div>
 
                   <div className="form-check text-start my-3">
@@ -96,10 +84,7 @@ const LoginCom = () => {
                       id="flexCheckDefault"
                       required
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexCheckDefault"
-                    >
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
                       Remember me
                     </label>
                   </div>
@@ -107,14 +92,13 @@ const LoginCom = () => {
                     Login
                   </button>
                   <div className="d-flex justify-content-between">
-                    <span className="d-sm-flex flex-sm-column d-xl-flex flex-xl-row d-lg-flex  flex-lg-row flex-sm-column d-flex flex-column">
+                    <span className="d-sm-flex flex-sm-column d-xl-flex flex-xl-row d-lg-flex flex-lg-row flex-sm-column d-flex flex-column">
                       Don't have an account?
                       <Link
                         to="register.html"
                         className="text-success"
                         onClick={(e) => {
                           e.preventDefault();
-                          // Handle sign-up navigation
                           setIsLogin(false);
                           setSignUp(true);
                         }}
@@ -122,9 +106,9 @@ const LoginCom = () => {
                         Register Now
                       </Link>
                     </span>
-                    <a href="" className="text-success">
+                    <Link to="/forgot" className="text-success">
                       Forget Password
-                    </a>
+                    </Link>
                   </div>
 
                   <Link
@@ -141,9 +125,7 @@ const LoginCom = () => {
                   </Link>
                 </Form>
                 {successMessage && (
-                  <div className="alert alert-success mt-3">
-                    {successMessage}
-                  </div>
+                  <div className="alert alert-success mt-3">{successMessage}</div>
                 )}
               </main>
             </div>

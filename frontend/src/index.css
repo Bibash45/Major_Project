@@ -496,6 +496,90 @@ blockquote.custom-success {
 .contact .btn-success:hover {
   background-color: #218838;
 }
+/* end of contact Page */
+
+
+/* start of feedback page */
+/* EnhancedFeedbackForm.css */
+
+/* Glassmorphism container style for the form */
+.form-container {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 40px;
+  transition: transform 0.3s ease;
+}
+
+.form-container:hover {
+  transform: scale(1.02);
+}
+
+/* Form input fields with soft borders and hover effects */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  color: #333;
+  border-radius: 10px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.border-custom {
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: #4CAF50;
+}
+
+/* Emoji styling with hover and active effects */
+.emoji {
+  font-size: 3rem;
+  cursor: pointer;
+  margin: 0 15px;
+  transition: transform 0.4s ease-in-out, filter 0.3s ease;
+}
+
+.emoji:hover {
+  transform: rotate(10deg) scale(1.2);
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.2));
+}
+
+.active-emoji {
+  transform: scale(1.4);
+  color: #ffca28;
+}
+
+/* Submit button with hover and animation effects */
+.btn-animated {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-animated:hover {
+  background: linear-gradient(45deg, #45a049, #7CB342);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+  }
+  .emoji {
+    font-size: 2.5rem;
+    margin: 0 10px;
+  }
+}
+
+/* end of feedback page */
 
 @media (min-width: 768px) {
   .contact h2 {

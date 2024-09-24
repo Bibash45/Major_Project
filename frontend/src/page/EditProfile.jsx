@@ -1,76 +1,92 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../customHook/useAuth";
 import { Helmet } from "react-helmet";
+import { isAuth } from "../help/helpers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const EditProfile = () => {
-  const { user } = useAuth();
+  console.log(isAuth());
+
+  const [imagePreview, setImagePreview] = useState("");
+  const [profileImage, setProfileImage] = useState(null); // Handle file directly in state
   const [formData, setFormData] = useState({
-    profileImage: null,
-    name: user ? user.name : "",
-    email: user ? user.email : "",
-    bio: user ? user.bio : "",
+    name: isAuth().name,
+    email: isAuth().email,
+    bio: isAuth().bio || '',
   });
-  const [imagePreview, setImagePreview] = useState(user ? user.profileImage : "");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleImageChange = (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFormData((prevState) => ({
-      ...prevState,
-      profileImage: file,
-    }));
-    setImagePreview(URL.createObjectURL(file));
+    if (file) {
+      setProfileImage(file); // Set the selected file
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Show image preview
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Create a FormData object
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("bio", formData.bio);
 
-    // Append the file if available
-    if (formData.profileImage) {
-      formDataToSend.append("image", formData.profileImage);
+    // Create a FormData object to send only updated fields
+    const dataToSend = new FormData();
+    dataToSend.append("name", formData.name);
+    dataToSend.append("email", formData.email);
+    dataToSend.append("bio", formData.bio);
+
+    // Only append the profile image if a new one has been selected
+    if (profileImage) {
+      dataToSend.append("profileImage", profileImage);
     }
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/users/${user._id}`, // Use user._id for API request
-        formDataToSend,
-        { headers: { "Content-Type": "multipart/form-data" } } // Set the header for file upload
+        `http://localhost:5000/api/users/${isAuth()._id}`,
+        dataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       console.log("Profile updated:", response.data);
-      navigate("/"); // Navigate to home or another page on success
+      toast.success("Updated successfully");
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error updating profile:", error.response?.data || error);
+      toast.error("Error updating profile"); // Optionally show error toast
     }
   };
 
-  // Cleanup blob URL when component unmounts or image changes
-  useEffect(() => {
-    return () => {
-      if (imagePreview.startsWith("blob:")) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
+  const userData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/users/${isAuth()._id}`
+      );
+      setFormData(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      toast.error("Error fetching user data");
+    }
+  };
 
+  useEffect(() => {
+    userData();
+  }, []);
   return (
     <>
+      <ToastContainer />
       <Helmet>
         <meta charSet="utf-8" />
         <title>Edit Profile - DonateFood</title>
@@ -99,47 +115,45 @@ const EditProfile = () => {
                   }}
                 />
               </div>
-              <Form.Control
-                type="file"
-                id="profileImage"
-                label="Upload New Photo"
-                onChange={handleImageChange}
-              />
+              <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
           </Col>
           <Col md={8}>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formName">
-                <Form.Label>Full Name</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
-                  placeholder="Enter your full name"
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder="Enter your full name"
                 />
               </Form.Group>
+
               <Form.Group controlId="formEmail" className="mt-3">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled
                 />
               </Form.Group>
+
               <Form.Group controlId="formBio" className="mt-3">
                 <Form.Label>Bio</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="bio"
-                  rows={3}
-                  placeholder="Tell us about yourself"
                   value={formData.bio}
                   onChange={handleChange}
+                  rows={3}
+                  placeholder="Tell us about yourself"
                 />
               </Form.Group>
+
               <div className="mt-4 text-center">
                 <Button
                   variant="secondary"
